@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>A letter for Ma’am Emma</title>
+    <title>A letter for Ma’am Joanne</title>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Great+Vibes&display=swap">
     <style>
@@ -460,7 +460,7 @@
 
     <div class="stage" id="stage">
         <div>
-            <div class="eyebrow">A letter for you · Teachers’ Day</div>
+            <div class="eyebrow">Principal · Ma’am Joanne</div>
             <h1 class="to script" id="toName"></h1>
         </div>
         <div class="scene">
@@ -484,18 +484,17 @@
             <div class="orn">✿ ✿ ✿</div>
             <div class="hb">Happy Teacher’s Day</div>
             <h2 class="dear script rv">Dear <span class="nm"></span>,</h2>
-            <p class="rv">I would like to thank you for all the support, encouragement, and kindness you have shown me
-                through the years. Since I was your student in Grade 7, you have always believed in me and encouraged me
-                to develop my talents and pursue my passions with confidence.</p>
-            <p class="rv">Your words of encouragement and trust in my abilities have inspired me to keep improving and
-                striving for my best. Thank you for recognizing my potential and for always being supportive of my
-                endeavors both inside and outside the classroom.</p>
-            <p class="rv">I am truly grateful to have had a teacher like you who not only teaches lessons but also
-                inspires students to believe in themselves. Your guidance has made a positive impact on my growth, and I
-                will always appreciate the confidence you have given me.</p>
-            <p class="rv">Wishing you happiness, good health, and many more years of inspiring students.</p>
+            <p class="rv">On this special day, we would like to express our heartfelt gratitude for your dedication,
+                guidance, and unwavering support. Thank you for always encouraging us to excel not only in our
+                academics but also in developing our talents and skills both inside and outside the school.</p>
+            <p class="rv">Your leadership inspires us to become confident, responsible, and compassionate individuals.
+                Thank you for keeping us Ildefonsians motivated, safe, and empowered to pursue our dreams. We are truly
+                grateful for the opportunities you provide and for allowing us to grow, learn, and discover our full
+                potential.</p>
+            <p class="rv">May God continue to bless you with good health, wisdom, and strength as you continue to lead
+                our school with excellence and care.</p>
             <p class="rv big">Happy Teacher’s Day, <span class="nm"></span>!</p>
-            <div class="sign rv"><span>With love and gratitude,</span><b class="script" id="from"></b></div>
+            <div class="sign rv"><span>With gratitude and respect,</span><b class="script" id="from"></b></div>
             <div class="acts rv">
                 <button class="btn" id="rose">🌹 Send you a rose</button>
                 <button class="btn o" id="fold">Fold the letter</button>
@@ -506,13 +505,14 @@
     <script>
         (function () {
             /* ===== EDIT HERE ===== */
-            var TO = "Ma’am Emma";   // the title card said "Ma'am Ema", the letter says "Emma"
+            var PRINCIPAL = "Ma’am Joanne";
+            var TO = "Ma’am Joan";
             var FROM = "Esme";
             /* ===================== */
             var $ = function (s) { return document.querySelector(s) };
             var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
             var q = new URLSearchParams(location.search); if (q.get("from")) FROM = q.get("from").slice(0, 40);
-            $("#toName").textContent = TO; $("#from").textContent = FROM;
+            $("#toName").textContent = PRINCIPAL; $("#from").textContent = FROM;
             document.querySelectorAll(".nm").forEach(function (e) { e.textContent = TO });
 
             function rain(list, n, amb) {

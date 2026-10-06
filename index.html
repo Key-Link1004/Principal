@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>A letter for Ma’am Emma</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Great+Vibes&display=swap">
+    <style>
+        :root {
+            --wine: #5a1526;
+            --wine2: #2b0912;
+            --cream: #f8f0df;
+            --gold: #c9a24b;
+            --ink: #3a1420;
+            --rose: #d9667f;
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px)
+        }
+
+        @media (prefers-color-scheme:dark) {
+            :root:not([data-theme="light"]) {
+                --wine: #4b1121;
+                --wine2: #22070e
+            }
+        }
+
+        :root[data-theme="dark"] {
+            --wine: #4b1121;
+            --wine2: #22070e
+        }
+
+        html {
+            height: 100%;
+            scroll-padding-top: env(safe-area-inset-top, 0px)
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: radial-gradient(80% 60% at 50% 35%, var(--wine), var(--wine2));
+            color: var(--cream);
+            font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+            overflow-x: hidden
+        }
+
+        .script {
+            font-family: "Great Vibes", "Brush Script MT", cursive;
+            font-weight: 400
+        }
+
+        #fx {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 60
+        }
+
+        #fx b {
+            position: absolute;
+            top: -40px;
+            font-weight: 400;
+            animation: fall linear forwards
+        }
+
+        #fx b.amb {
+            top: auto;
+            bottom: -40px;
+            opacity: .22;
+            animation-name: up
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(112vh) rotate(420deg)
+            }
+        }
+
+        @keyframes up {
+            to {
+                transform: translateY(-112vh) rotate(80deg)
+            }
+        }
+
+        /* scene */
+        .stage {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 34px;
+            padding: 24px 16px;
+            transition: opacity .8s, transform .8s
+        }
+
+        .stage.away {
+            opacity: 0;
+            transform: translateY(30px);
+            pointer-events: none
+        }
+
+        .eyebrow {
+            letter-spacing: .35em;
+            font-size: 13px;
+            text-transform: uppercase;
+            color: var(--gold);
+            text-align: center
+        }
+
+        .to {
+            font-size: clamp(46px, 14vw, 64px);
+            line-height: 1;
+            text-align: center;
+            margin: 6px 0 0;
+            color: #f6e3b0
+        }
+
+        .scene {
+            perspective: 1100px
+        }
+
+        .env {
+            position: relative;
+            width: min(86vw, 380px);
+            aspect-ratio: 3/2;
+            filter: drop-shadow(0 26px 34px rgba(0, 0, 0, .55));
+            animation: float 4s ease-in-out infinite;
+            cursor: pointer
+        }
+
+        .env.open {
+            animation: none
+        }
+
+        @keyframes float {
+            50% {
+                transform: translateY(-8px)
+            }
+        }
+
+        .env .bk {
+            position: absolute;
+            inset: 0;
+            background: #e9d8b4;
+            border-radius: 6px
+        }
+
+        .env .pp {
+            position: absolute;
+            left: 6%;
+            right: 6%;
+            top: 8%;
+            bottom: 12%;
+            background: var(--cream);
+            border-radius: 3px;
+            z-index: 1;
+            transition: transform .9s .55s
+        }
+
+        .env.open .pp {
+            transform: translateY(-34%)
+        }
+
+        .env .pk {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background: linear-gradient(160deg, #ead9b5, #d8c293);
+            clip-path: polygon(0 0, 50% 54%, 100% 0, 100% 100%, 0 100%);
+            border-radius: 6px
+        }
+
+        .env .fl {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            height: 56%;
+            z-index: 3;
+            background: linear-gradient(#cdb685, #dcc79b);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top;
+            transition: transform .8s
+        }
+
+        .env.open .fl {
+            transform: rotateX(180deg);
+            z-index: 0
+        }
+
+        .seal {
+            position: absolute;
+            left: 50%;
+            top: 54%;
+            width: 66px;
+            height: 66px;
+            margin: -33px 0 0 -33px;
+            border-radius: 50%;
+            border: 0;
+            z-index: 4;
+            background: radial-gradient(circle at 35% 28%, #d1485f, #8a1830 62%, #5e0f20);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, .5), inset 0 -4px 8px rgba(0, 0, 0, .35);
+            color: #f3d98b;
+            font-size: 40px;
+            line-height: 1;
+            cursor: pointer;
+            animation: beat 1.7s ease-in-out infinite
+        }
+
+        .seal:before {
+            content: "";
+            position: absolute;
+            inset: 6px;
+            border: 1.5px solid rgba(243, 217, 139, .55);
+            border-radius: 50%
+        }
+
+        @keyframes beat {
+            50% {
+                transform: scale(1.1)
+            }
+        }
+
+        .seal.crack {
+            animation: crack .7s forwards
+        }
+
+        @keyframes crack {
+            30% {
+                transform: scale(1.25) rotate(8deg)
+            }
+
+            100% {
+                transform: scale(.2) rotate(-40deg);
+                opacity: 0
+            }
+        }
+
+        .hint {
+            font-size: 20px;
+            font-style: italic;
+            color: #e9cf93;
+            text-align: center;
+            transition: opacity .4s
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 3px
+        }
+
+        /* letter */
+        .letter {
+            position: fixed;
+            inset: 0;
+            z-index: 20;
+            background: var(--cream);
+            color: var(--ink);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            transform: translateY(102%);
+            transition: transform 1s cubic-bezier(.2, .8, .2, 1);
+            visibility: hidden
+        }
+
+        .letter.show {
+            transform: none;
+            visibility: visible
+        }
+
+        .letter:before {
+            content: "";
+            position: fixed;
+            inset: 10px;
+            border: 1px solid var(--gold);
+            pointer-events: none;
+            z-index: 2;
+            opacity: .7
+        }
+
+        .track {
+            position: sticky;
+            top: 0;
+            z-index: 3;
+            padding: calc(14px + env(safe-area-inset-top, 0px)) 28px 12px;
+            background: linear-gradient(var(--cream) 70%, transparent)
+        }
+
+        .line {
+            position: relative;
+            height: 3px;
+            background: rgba(201, 162, 75, .3);
+            border-radius: 3px;
+            margin: 0 6px
+        }
+
+        .line i {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: calc(var(--p, 0)*100%);
+            background: var(--gold);
+            border-radius: 3px
+        }
+
+        .line em {
+            position: absolute;
+            top: -13px;
+            left: calc(var(--p, 0)*100%);
+            margin-left: -13px;
+            font-style: normal;
+            font-size: 22px;
+            transition: left .1s
+        }
+
+        .stops {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            letter-spacing: .08em;
+            color: #8a6d27;
+            margin-top: 10px;
+            text-transform: uppercase
+        }
+
+        .page {
+            max-width: 540px;
+            margin: 0 auto;
+            padding: 18px 30px 70px
+        }
+
+        .orn {
+            text-align: center;
+            color: var(--gold);
+            font-size: 22px;
+            letter-spacing: .5em
+        }
+
+        .hb {
+            font-size: 15px;
+            letter-spacing: .32em;
+            text-transform: uppercase;
+            text-align: center;
+            color: #8a6d27;
+            margin: 6px 0 0
+        }
+
+        .dear {
+            font-size: clamp(44px, 13vw, 58px);
+            text-align: center;
+            color: var(--wine);
+            margin: 6px 0 20px;
+            line-height: 1.05
+        }
+
+        .page p {
+            font-size: 21px;
+            line-height: 1.55;
+            margin: 0 0 20px;
+            font-weight: 500
+        }
+
+        .page p:first-of-type:first-letter {
+            float: left;
+            font-family: "Great Vibes", cursive;
+            font-size: 68px;
+            line-height: .8;
+            margin: 6px 8px 0 0;
+            color: var(--wine)
+        }
+
+        .rv {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity .9s, transform .9s
+        }
+
+        .rv.in {
+            opacity: 1;
+            transform: none
+        }
+
+        .big {
+            font-size: 25px !important;
+            text-align: center;
+            font-style: italic;
+            color: var(--wine)
+        }
+
+        .sign {
+            text-align: right;
+            margin-top: 26px
+        }
+
+        .sign span {
+            display: block;
+            font-size: 20px;
+            font-style: italic
+        }
+
+        .sign b {
+            display: block;
+            font-size: 56px;
+            color: var(--wine);
+            line-height: 1.1
+        }
+
+        .acts {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 34px;
+            align-items: center
+        }
+
+        .btn {
+            padding: 12px 26px;
+            border-radius: 999px;
+            border: 1.5px solid var(--wine);
+            background: var(--wine);
+            color: var(--cream);
+            font: 600 19px "Cormorant Garamond", serif;
+            cursor: pointer
+        }
+
+        .btn.o {
+            background: transparent;
+            color: var(--wine)
+        }
+
+        .btn:active {
+            transform: scale(.96)
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+            * {
+                animation: none !important;
+                transition-duration: .01s !important
+            }
+
+            .rv {
+                opacity: 1;
+                transform: none
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="fx" aria-hidden="true"></div>
+
+    <div class="stage" id="stage">
+        <div>
+            <div class="eyebrow">A letter for you · Teachers’ Day</div>
+            <h1 class="to script" id="toName"></h1>
+        </div>
+        <div class="scene">
+            <div class="env" id="env">
+                <div class="bk"></div>
+                <div class="pp"></div>
+                <div class="pk"></div>
+                <div class="fl"></div>
+                <button class="seal script" id="seal" aria-label="Break the seal and open the letter">E</button>
+            </div>
+        </div>
+        <div class="hint" id="hint">Tap the wax seal to open</div>
+    </div>
+
+    <article class="letter" id="letter" aria-label="Letter">
+        <div class="track">
+            <div class="line" id="line"><i></i><em>🎓</em></div>
+            <div class="stops"><span></span><span>Through the years</span><span>Today</span></div>
+        </div>
+        <div class="page">
+            <div class="orn">✿ ✿ ✿</div>
+            <div class="hb">Happy Teacher’s Day</div>
+            <h2 class="dear script rv">Dear <span class="nm"></span>,</h2>
+            <p class="rv">I would like to thank you for all the support, encouragement, and kindness you have shown me
+                through the years. Since I was your student in Grade 7, you have always believed in me and encouraged me
+                to develop my talents and pursue my passions with confidence.</p>
+            <p class="rv">Your words of encouragement and trust in my abilities have inspired me to keep improving and
+                striving for my best. Thank you for recognizing my potential and for always being supportive of my
+                endeavors both inside and outside the classroom.</p>
+            <p class="rv">I am truly grateful to have had a teacher like you who not only teaches lessons but also
+                inspires students to believe in themselves. Your guidance has made a positive impact on my growth, and I
+                will always appreciate the confidence you have given me.</p>
+            <p class="rv">Wishing you happiness, good health, and many more years of inspiring students.</p>
+            <p class="rv big">Happy Teacher’s Day, <span class="nm"></span>!</p>
+            <div class="sign rv"><span>With love and gratitude,</span><b class="script" id="from"></b></div>
+            <div class="acts rv">
+                <button class="btn" id="rose">🌹 Send you a rose</button>
+                <button class="btn o" id="fold">Fold the letter</button>
+            </div>
+        </div>
+    </article>
+
+    <script>
+        (function () {
+            /* ===== EDIT HERE ===== */
+            var TO = "Ma’am Emma";   // the title card said "Ma'am Ema", the letter says "Emma"
+            var FROM = "Esme";
+            /* ===================== */
+            var $ = function (s) { return document.querySelector(s) };
+            var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+            var q = new URLSearchParams(location.search); if (q.get("from")) FROM = q.get("from").slice(0, 40);
+            $("#toName").textContent = TO; $("#from").textContent = FROM;
+            document.querySelectorAll(".nm").forEach(function (e) { e.textContent = TO });
+
+            function rain(list, n, amb) {
+                if (reduce) return; var fx = $("#fx");
+                for (var i = 0; i < n; i++) {
+                    var b = document.createElement("b"); b.textContent = list[i % list.length]; if (amb) b.className = "amb";
+                    b.style.left = Math.random() * 100 + "%"; b.style.fontSize = (16 + Math.random() * 16) + "px";
+                    b.style.animationDuration = (amb ? 16 : 3) + Math.random() * (amb ? 10 : 3) + "s"; b.style.animationDelay = (amb ? -Math.random() * 16 : Math.random() * .9) + "s";
+                    fx.appendChild(b); if (!amb) setTimeout(function (e) { e.remove() }, 8000, b)
+                }
+            }
+            rain(["🌸", "🌹", "✿", "🤍"], 8, true);
+
+            var env = $("#env"), letter = $("#letter"), stage = $("#stage"), opened = false;
+            function openIt() {
+                if (opened) return; opened = true;
+                $("#seal").classList.add("crack"); env.classList.add("open"); $("#hint").style.opacity = 0;
+                setTimeout(function () { stage.classList.add("away"); letter.classList.add("show"); letter.scrollTop = 0; rain(["🌹", "🌸", "✨", "🤍"], 26); watch() }, reduce ? 0 : 1700);
+            }
+            function foldIt() {
+                letter.classList.remove("show"); stage.classList.remove("away");
+                setTimeout(function () {
+                    env.classList.remove("open"); $("#seal").classList.remove("crack"); $("#hint").style.opacity = 1; opened = false;
+                    document.querySelectorAll(".rv").forEach(function (e) { e.classList.remove("in") })
+                }, 900);
+            }
+            env.addEventListener("click", openIt);
+            $("#fold").addEventListener("click", foldIt);
+            $("#rose").addEventListener("click", function () { rain(["🌹", "🌹", "💗", "🌸"], 46); this.textContent = "🌹 With all my love" });
+
+            /* reveal paragraphs as they scroll into view */
+            var io = null;
+            function watch() {
+                var items = document.querySelectorAll(".rv");
+                if (!("IntersectionObserver" in window) || reduce) { items.forEach(function (e) { e.classList.add("in") }); return }
+                if (io) io.disconnect();
+                io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target) } }) }, { root: letter, threshold: .2 });
+                items.forEach(function (e) { io.observe(e) });
+            }
+            /* "Grade 7 -> Today" progress */
+            letter.addEventListener("scroll", function () {
+                var max = letter.scrollHeight - letter.clientHeight;
+                $("#line").style.setProperty("--p", max > 0 ? Math.min(1, letter.scrollTop / max) : 0);
+            }, { passive: true });
+        })();
+    </script>
+</body>
+
+</html>
